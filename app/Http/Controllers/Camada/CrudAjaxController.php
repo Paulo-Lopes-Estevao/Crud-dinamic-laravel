@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Camada;
 
-use App\Camada\Models\Register;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Register as ModelsRegister;
 use Illuminate\Http\Request;
 
 class CrudAjaxController extends Controller
@@ -13,7 +13,7 @@ class CrudAjaxController extends Controller
     protected $registers;
     protected $requests;
 
-    public function __construct(Register $register, Request $request)
+    public function __construct(ModelsRegister $register, Request $request)
     {
         $this->requests = $request;
         $this->registers = $register;
