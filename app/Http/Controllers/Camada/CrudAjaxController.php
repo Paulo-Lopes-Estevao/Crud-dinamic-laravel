@@ -55,6 +55,8 @@ class CrudAjaxController extends Controller
 
         if (!$redir) {
             return Response()->json($data);
+        }else {
+            return Response()->json("cadastrado");
         }
     }
 
@@ -77,11 +79,12 @@ class CrudAjaxController extends Controller
      */
     public function edit($id)
     {
-        return "lopes";
-        // if (!$data = $this->registers->find($id))
-        //     return redirect()->back();
 
-        // return view("layout.componet.edit", compact('data'));
+        if (!$data = $this->registers->find($id))
+            return redirect()->back();
+
+        return view("layout.componet.edit", compact('data'));
+
     }
 
     /**
@@ -93,7 +96,20 @@ class CrudAjaxController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        if (!$data = $this->registers->find($id))
+            return redirect()->back();
+
+           $dat = $this->requests->all();
+
+           $redir =  $data->update($dat);
+
+        if (!$redir) {
+            return Response()->json($dat);
+        }else {
+            return Response()->json("alterado com sucesso");
+        }
+
     }
 
     /**
@@ -104,6 +120,9 @@ class CrudAjaxController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $dat = $this->registers->find($id);
+        $dat->delete();
+        $data = $this->registers->all();
+        return redirect()->back();
     }
 }
